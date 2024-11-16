@@ -21,22 +21,32 @@ import { AddStageModal } from "./_components/add-stage-modal";
 import { initialNodes } from "./_components/initial-nodes";
 import { initialEdges } from "./_components/initial-edges";
 import { CustomEdge } from "./_components/custom-edge";
+import ResizableNodeSelected from "./_components/resizable-node-selected";
+import ResizableNode from "./_components/resizable-node";
 
+// Additional Styling
+/*
 const nodeTypeStyles = {
     group: { backgroundColor: "#3e98ff", color: "white" },
     input: { backgroundColor: "#59b36d", color: "white" },
     output: { backgroundColor: "#6865A5", color: "white" },
     default: { backgroundColor: "#ff0072", color: "white" },
+    labeledGroupNode: { backgroundColor: "#7aace9", color: "white" }
 };
 
 const applyNodeStyles = (node) => ({
     ...node,
     style: nodeTypeStyles[node.type] || nodeTypeStyles.default,
 });
+*/
 
+const nodeTypes = {
+    ResizableNode,
+    ResizableNodeSelected,
+};
 export default function Page() {
-    const [nodes, setNodes] = useNodesState(initialNodes.map(applyNodeStyles));
-    const [edges, setEdges] = useEdgesState(initialEdges.map(applyNodeStyles));
+    const [nodes, setNodes] = useNodesState(initialNodes);
+    const [edges, setEdges] = useEdgesState(initialEdges);
 
     const defaultEdgeOptions = {
         animated: true,
@@ -83,6 +93,7 @@ export default function Page() {
                     selectionMode={SelectionMode.Partial}
                     fitView
                     edgeTypes={edgeTypes}
+                    nodeTypes={nodeTypes}
                 >
                     <Controls />
                     <MiniMap />
