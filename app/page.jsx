@@ -20,9 +20,10 @@ import "@xyflow/react/dist/style.css";
 import { AddStageModal } from "./_components/add-stage-modal";
 import { initialNodes } from "./_components/initial-nodes";
 import { initialEdges } from "./_components/initial-edges";
-import { CustomEdge } from "./_components/custom-edge";
+import CustomEdge from "./_components/custom-edge";
 import ResizableNodeSelected from "./_components/resizable-node-selected";
 import ResizableNode from "./_components/resizable-node";
+import { LabeledGroupNode } from "../components/labeled-group-node";
 
 // Additional Styling
 /*
@@ -43,10 +44,17 @@ const applyNodeStyles = (node) => ({
 const nodeTypes = {
     ResizableNode,
     ResizableNodeSelected,
+    LabeledGroupNode,
 };
+const edgeTypes = {
+    CustomEdge,
+};
+
 export default function Page() {
     const [nodes, setNodes] = useNodesState(initialNodes);
     const [edges, setEdges] = useEdgesState(initialEdges);
+    console.log(edges);
+    console.log(edges);
 
     const defaultEdgeOptions = {
         animated: true,
@@ -55,11 +63,10 @@ export default function Page() {
             width: 20,
             height: 20,
         },
+        type: "CustomEdge",
+        data: { label: "Dependent" },
     };
     const panOnDrag = [1, 2];
-    const edgeTypes = {
-        "custom-edge": CustomEdge,
-    };
 
     const onConnect = useCallback(
         (params) => setEdges((eds) => addEdge(params, eds)),
@@ -77,7 +84,7 @@ export default function Page() {
     return (
         <div className="h-screen w-screen">
             <nav className="flex h-[60px] items-center border bg-background px-4 shadow">
-                <AddStageModal />
+                <AddStageModal setNodes={setNodes} />
             </nav>
             <main className="h-[calc(100vh-60px)]">
                 <ReactFlow
@@ -91,7 +98,7 @@ export default function Page() {
                     panOnDrag={panOnDrag}
                     selectionOnDrag
                     selectionMode={SelectionMode.Partial}
-                    fitView
+                    // fitView
                     edgeTypes={edgeTypes}
                     nodeTypes={nodeTypes}
                 >
