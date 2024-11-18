@@ -1,0 +1,6 @@
+.react-flow__edges {
+    z-index: 99999999999999;
+}
+.react-flow__edgelabel-renderer {
+    z-index: 99999999999999;
+}

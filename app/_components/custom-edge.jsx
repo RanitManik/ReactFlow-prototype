@@ -23,7 +23,12 @@ const CustomEdge = ({
 
     return (
         <>
-            <BaseEdge id={id} path={edgePath} {...props} />
+            <BaseEdge
+                id={id}
+                path={edgePath}
+                {...props}
+                interactionWidth={20}
+            />
             <EdgeLabelRenderer>
                 <div
                     style={{
