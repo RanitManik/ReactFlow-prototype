@@ -122,7 +122,7 @@ export default function Page() {
 
     return (
         <div>
-            <nav className="absolute z-10 left-4 top-4">
+            <nav className="absolute left-4 top-4 z-10">
                 <AddStageModal setNodes={setNodes} />
             </nav>
             <main className="h-svh">

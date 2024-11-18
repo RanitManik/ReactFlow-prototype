@@ -28,7 +28,7 @@ function AddProcessModal({ parentId, label, setNodes }) {
 
         setNodes((prevNodes) => {
             const existingChildNodes = prevNodes.filter(
-                (node) => node.parentId === parentId
+                (node) => node.parentId === parentId,
             );
 
             const newChildNode = {
@@ -53,7 +53,7 @@ function AddProcessModal({ parentId, label, setNodes }) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <button className="bg-primary px-2 py-1 text-white rounded">
+                <button className="rounded bg-primary px-2 py-1 text-white">
                     Add Process
                 </button>
             </DialogTrigger>
