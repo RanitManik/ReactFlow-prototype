@@ -15,7 +15,7 @@ export const Sidebar = () => {
                 You can drag these nodes to the pane on the right.
             </div>
             <div
-                className="dndnode"
+                className="dndnode stage"
                 onDragStart={(event) => onDragStart(event, "LabeledGroupNode")}
                 draggable
             >

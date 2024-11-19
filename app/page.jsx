@@ -113,7 +113,7 @@ export default function Page() {
                 type,
                 position,
                 data: { label: `${type} node` },
-                measured: { width: 160, height: 20 }, // Default size for new node
+                /*measured: { width: 160, height: 20 }, // Default size for new node*/
             };
 
             if (type === "LabeledGroupNode") {
@@ -125,8 +125,8 @@ export default function Page() {
             const newNodeBoundingBox = {
                 x: position.x,
                 y: position.y,
-                width: newNode.measured.width,
-                height: newNode.measured.height,
+                width: 160,
+                height: 20,
             };
 
             // Find intersecting parents and calculate intersection area
@@ -179,7 +179,12 @@ export default function Page() {
                 // Update the new node with parent relationship
                 newNode.parentId = bestParent.parentNode.id;
                 newNode.extent = "parent"; // Restrict movement within parent
-                newNode.expandParent = true; // Optional for expanding parent
+
+                // update the position relative to the group node
+                newNode.position.x =
+                    newNode.position.x - bestParent.parentNode.position.x;
+                newNode.position.y =
+                    newNode.position.y - bestParent.parentNode.position.y;
             }
 
             // Add the new node to the state

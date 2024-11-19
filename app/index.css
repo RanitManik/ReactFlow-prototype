@@ -38,10 +38,12 @@
 }
 
 .dndflow .dndnode.stage {
-    border-color: #0041d0;
+    border-color: #704af2;
+    background-color: rgba(207, 182, 255, 0.4);
 }
 
 .dndflow .dndnode.process {
+    background-color: white;
     border-color: #ff0072;
 }
 
@@ -60,9 +62,8 @@
     --xy-theme-selected: #f57dbd;
     --xy-theme-hover: #c5c5c5;
     --xy-theme-color-focus: #e8e8e8;
-    --xy-edge-stroke-default: rgb(120, 162, 255);
-    --xy-theme-edge-hover: #0039ad;
-    /*--xy-node-background-color-default: rgba(245, 125, 189, 0.2);*/
+    --xy-edge-stroke-default: rgb(61, 105, 203);
+    --xy-theme-edge-hover: black;
 
     /* Built-in Variables see https://reactflow.dev/learn/customization/theming */
     --xy-node-border-default: 1px solid #ededed;
@@ -88,13 +89,13 @@
 /* Customizing Default Theming */
 
 .react-flow__node {
-    box-shadow: var(--xy-node-boxshadow-default);
     border-radius: var(--xy-node-border-radius-default);
     background-color: var(--xy-node-background-color-default);
     text-align: center;
     padding: 10px;
     font-size: 12px;
     border: var(--xy-node-border-default);
+    border-color: var(--xy-theme-selected);
     color: var(--xy-node-color-default);
 }
 
@@ -105,19 +106,20 @@
 .react-flow__node.selectable:hover,
 .react-flow__node.draggable:hover {
     border-color: var(--xy-theme-hover);
+    box-shadow: var(--xy-node-boxshadow-default);
 }
 
 .react-flow__node.selectable.selected {
-    border-color: var(--xy-theme-selected);
+    border-color: black;
     box-shadow: var(--xy-node-boxshadow-default);
 }
 
 .react-flow__node-LabeledGroupNode {
-    background-color: rgba(255, 255, 255, 0.6) !important;
+    background-color: rgba(207, 182, 255, 0.4) !important;
 }
 
 .react-flow__node-LabeledGroupNode.selectable {
-    border-color: rgba(197, 197, 197, 0.5);
+    border-color: #704af2;
 }
 
 .react-flow__node-LabeledGroupNode.selectable:hover {
@@ -125,7 +127,7 @@
 }
 
 .react-flow__node-LabeledGroupNode.selectable.selected {
-    border-color: transparent;
+    border-color: black;
 }
 
 .react-flow__node-group {
