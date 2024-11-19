@@ -98,7 +98,6 @@ export default function Page() {
         (event) => {
             event.preventDefault();
 
-            // check if the dropped element is valid
             if (!type) {
                 return;
             }
@@ -107,16 +106,86 @@ export default function Page() {
                 x: event.clientX,
                 y: event.clientY,
             });
+
+            // Create the new node
             const newNode = {
                 id: uuidv4(),
                 type,
                 position,
                 data: { label: `${type} node` },
+                measured: { width: 160, height: 20 }, // Default size for new node
             };
 
+            if (type === "LabeledGroupNode") {
+                setNodes((nds) => nds.concat(newNode));
+                return;
+            }
+
+            // Calculate bounding box of the new node
+            const newNodeBoundingBox = {
+                x: position.x,
+                y: position.y,
+                width: newNode.measured.width,
+                height: newNode.measured.height,
+            };
+
+            // Find intersecting parents and calculate intersection area
+            const intersectingParents = nodes
+                .filter((node) => node.type === "LabeledGroupNode") // Filter potential parents
+                .map((parentNode) => {
+                    // Calculate bounding box for the parent node
+                    const parentBoundingBox = {
+                        x: parentNode.position.x,
+                        y: parentNode.position.y,
+                        width: parentNode.measured.width,
+                        height: parentNode.measured.height,
+                    };
+
+                    // Calculate intersection dimensions
+                    const intersectionWidth = Math.max(
+                        0,
+                        Math.min(
+                            newNodeBoundingBox.x + newNodeBoundingBox.width,
+                            parentBoundingBox.x + parentBoundingBox.width,
+                        ) - Math.max(newNodeBoundingBox.x, parentBoundingBox.x),
+                    );
+
+                    const intersectionHeight = Math.max(
+                        0,
+                        Math.min(
+                            newNodeBoundingBox.y + newNodeBoundingBox.height,
+                            parentBoundingBox.y + parentBoundingBox.height,
+                        ) - Math.max(newNodeBoundingBox.y, parentBoundingBox.y),
+                    );
+
+                    const intersectionArea =
+                        intersectionWidth * intersectionHeight;
+
+                    return {
+                        parentNode,
+                        intersectionArea,
+                    };
+                })
+                .filter(({ intersectionArea }) => intersectionArea > 0); // Only keep parents with intersections
+
+            // Determine the parent with the largest intersection
+            if (intersectingParents.length > 0) {
+                const bestParent = intersectingParents.reduce((max, current) =>
+                    current.intersectionArea > max.intersectionArea
+                        ? current
+                        : max,
+                );
+
+                // Update the new node with parent relationship
+                newNode.parentId = bestParent.parentNode.id;
+                newNode.extent = "parent"; // Restrict movement within parent
+                newNode.expandParent = true; // Optional for expanding parent
+            }
+
+            // Add the new node to the state
             setNodes((nds) => nds.concat(newNode));
         },
-        [screenToFlowPosition, type],
+        [screenToFlowPosition, type, nodes, setNodes],
     );
 
     const onNodesDelete = useCallback(
@@ -157,14 +226,8 @@ export default function Page() {
                     onConnect={onConnect}
                     onNodesDelete={onNodesDelete}
                     defaultEdgeOptions={defaultEdgeOptions}
-                    // panOnScroll
-                    // panOnDrag={panOnDrag}
-                    // selectionOnDrag
-                    // selectionMode={SelectionMode.Partial}
                     onDrop={onDrop}
                     onDragOver={onDragOver}
-                    // fitView
-                    // fitViewOptions={{ padding: 2 }}
                     edgeTypes={edgeTypes}
                     nodeTypes={nodeTypes}
                     proOptions={proOptions}

@@ -2,7 +2,7 @@ import { Handle, NodeResizer, Position } from "@xyflow/react";
 import { BaseNode } from "@/components/base-node";
 
 export function LabeledGroupNode({ id, data, selected }: any) {
-    const { label, setNodes } = data;
+    const { label } = data;
 
     return (
         <BaseNode
