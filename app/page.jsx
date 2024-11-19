@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback } from "react";
+import React, { useCallback, useRef } from "react";
 import {
     addEdge,
     applyEdgeChanges,
@@ -14,34 +14,20 @@ import {
     MarkerType,
     MiniMap,
     ReactFlow,
-    SelectionMode,
     useEdgesState,
     useNodesState,
+    useReactFlow,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
+import { v4 as uuidv4 } from "uuid";
 
-import { AddStageModal } from "./_components/add-stage-modal";
 import CustomEdge from "./_components/custom-edge";
 import { LabeledGroupNode } from "../components/labeled-group-node";
 import { CustomChildNode } from "../components/custom-child-node";
 import { toast, Toaster } from "sonner";
 import "./index.css";
-
-// Additional Styling
-/*
-const nodeTypeStyles = {
-    group: { backgroundColor: "#3e98ff", color: "white" },
-    input: { backgroundColor: "#59b36d", color: "white" },
-    output: { backgroundColor: "#6865A5", color: "white" },
-    default: { backgroundColor: "#ff0072", color: "white" },
-    labeledGroupNode: { backgroundColor: "#7aace9", color: "white" }
-};
-
-const applyNodeStyles = (node) => ({
-    ...node,
-    style: nodeTypeStyles[node.type] || nodeTypeStyles.default,
-});
-*/
+import { useDnD } from "./context/drag-and-drop";
+import { Sidebar } from "./_components/sidebar";
 
 const nodeTypes = {
     LabeledGroupNode,
@@ -52,10 +38,17 @@ const edgeTypes = {
 };
 
 export default function Page() {
+    const reactFlowWrapper = useRef(null);
+
     const [nodes, setNodes] = useNodesState([]);
     const [edges, setEdges] = useEdgesState([]);
-    // console.log(edges);
-    // console.log(edges);
+
+    console.log(edges);
+    console.log(nodes);
+
+    // drag and drop providers setup
+    const { screenToFlowPosition } = useReactFlow();
+    const [type] = useDnD();
 
     const proOptions = { hideAttribution: true };
 
@@ -69,7 +62,8 @@ export default function Page() {
         type: "CustomEdge",
         data: { label: "Dependent" },
     };
-    const panOnDrag = [1, 2];
+
+    // const panOnDrag = [1, 2];
 
     const onConnect = useCallback(
         (params) => {
@@ -91,6 +85,38 @@ export default function Page() {
     const onEdgesChange = useCallback(
         (changes) => setEdges((eds) => applyEdgeChanges(changes, eds)),
         [setEdges],
+    );
+
+    // drag and drop functions
+
+    const onDragOver = useCallback((event) => {
+        event.preventDefault();
+        event.dataTransfer.dropEffect = "move";
+    }, []);
+
+    const onDrop = useCallback(
+        (event) => {
+            event.preventDefault();
+
+            // check if the dropped element is valid
+            if (!type) {
+                return;
+            }
+
+            const position = screenToFlowPosition({
+                x: event.clientX,
+                y: event.clientY,
+            });
+            const newNode = {
+                id: uuidv4(),
+                type,
+                position,
+                data: { label: `${type} node` },
+            };
+
+            setNodes((nds) => nds.concat(newNode));
+        },
+        [screenToFlowPosition, type],
     );
 
     const onNodesDelete = useCallback(
@@ -121,11 +147,8 @@ export default function Page() {
     );
 
     return (
-        <div>
-            <nav className="absolute left-4 top-4 z-10">
-                <AddStageModal setNodes={setNodes} />
-            </nav>
-            <main className="h-svh">
+        <div className="dndflow">
+            <main className="reactflow-wrapper" ref={reactFlowWrapper}>
                 <ReactFlow
                     nodes={nodes}
                     edges={edges}
@@ -138,8 +161,10 @@ export default function Page() {
                     // panOnDrag={panOnDrag}
                     // selectionOnDrag
                     // selectionMode={SelectionMode.Partial}
-                    fitView
-                    fitViewOptions={{ padding: 2 }}
+                    onDrop={onDrop}
+                    onDragOver={onDragOver}
+                    // fitView
+                    // fitViewOptions={{ padding: 2 }}
                     edgeTypes={edgeTypes}
                     nodeTypes={nodeTypes}
                     proOptions={proOptions}
@@ -153,6 +178,7 @@ export default function Page() {
                     />
                 </ReactFlow>
             </main>
+            <Sidebar />
             <Toaster richColors />
         </div>
     );

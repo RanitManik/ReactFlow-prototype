@@ -39,10 +39,11 @@ const CustomEdge = ({
                         paddingBlock: 4,
                         borderRadius: 2,
                         fontWeight: 700,
+                        fontSize: 10,
                     }}
-                    className="nodrag nopan flex items-center gap-1 text-xs"
+                    className="nodrag nopan flex items-center gap-1 border border-yellow-700 text-yellow-900"
                 >
-                    <SquarePlus size={14} />
+                    <SquarePlus size={10} />
                     {data.label}
                 </div>
             </EdgeLabelRenderer>

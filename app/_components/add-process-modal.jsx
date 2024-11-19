@@ -7,10 +7,11 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "../../components/ui/dialog";
-import { Button } from "../../components/ui/button";
-import { Label } from "../../components/ui/label";
-import { Input } from "../../components/ui/input";
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Plus } from "lucide-react";
 
 function AddProcessModal({ parentId, label, setNodes }) {
     const [open, setOpen] = useState(false);
@@ -53,7 +54,8 @@ function AddProcessModal({ parentId, label, setNodes }) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <button className="rounded bg-primary px-2 py-1 text-white">
+                <button className="flex items-center gap-1 rounded bg-primary px-2 py-1 text-xs text-white">
+                    <Plus size={12} />
                     Add Process
                 </button>
             </DialogTrigger>

@@ -1,6 +1,5 @@
 import { Handle, NodeResizer, Position } from "@xyflow/react";
 import { BaseNode } from "@/components/base-node";
-import AddProcessModal from "@/app/_components/add-process-modal";
 
 export function LabeledGroupNode({ id, data, selected }: any) {
     const { label, setNodes } = data;
@@ -8,21 +7,27 @@ export function LabeledGroupNode({ id, data, selected }: any) {
     return (
         <BaseNode
             selected={selected}
-            className="h-full overflow-hidden rounded-sm bg-white bg-opacity-50 p-0"
+            className="h-full overflow-hidden rounded-sm p-0"
+            style={{
+                width: 600,
+                height: 300,
+            }}
         >
-            <Handle type="target" position={Position.Top} />
-            <NodeResizer minWidth={300} minHeight={250} />
+            <NodeResizer minWidth={400} minHeight={250} isVisible={selected} />
             {label && (
-                <div className="absolute -top-10 flex w-full items-end justify-between text-card-foreground">
-                    <span className="text-sm font-bold">{label}</span>
-                    <AddProcessModal
+                <div className="absolute -top-7 flex w-full items-end justify-between">
+                    <span className="text-sm font-bold text-primary">
+                        {label}
+                    </span>
+                    {/*<AddProcessModal
                         parentId={id}
                         label={label}
                         setNodes={setNodes}
-                    />
+                    />*/}
                 </div>
             )}
-            <Handle type="source" position={Position.Bottom} />
+            <Handle type="target" position={Position.Left} />
+            <Handle type="source" position={Position.Right} />
         </BaseNode>
     );
 }

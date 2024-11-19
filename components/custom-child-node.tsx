@@ -1,4 +1,4 @@
-import { Handle, NodeToolbar, Position } from "@xyflow/react";
+import { Handle, Position } from "@xyflow/react";
 import { BaseNode } from "@/components/base-node";
 
 export function CustomChildNode({ data, selected }: any) {
@@ -6,17 +6,11 @@ export function CustomChildNode({ data, selected }: any) {
     return (
         <BaseNode
             selected={selected}
-            className="h-full overflow-hidden rounded-sm bg-white bg-opacity-50"
+            className="h-full overflow-hidden rounded-sm"
         >
-            {/*<NodeToolbar isVisible={data.toolbarVisible} position={data.toolbarPosition}>
-                <button>delete</button>
-                <button>copy</button>
-                <button>expand</button>
-            </NodeToolbar>*/}
-            {/*<NodeResizer minWidth={300} minHeight={250} />*/}
             {label && (
-                <div className="flex h-full w-full items-end justify-between text-card-foreground">
-                    <span className="text-xs">{label}</span>
+                <div className="flex h-full w-full items-end justify-between">
+                    <span className="text-xs font-medium">{label}</span>
                 </div>
             )}
             <Handle type="target" position={Position.Left} />
