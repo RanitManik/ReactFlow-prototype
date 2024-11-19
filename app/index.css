@@ -74,7 +74,7 @@
     --xy-node-border-radius-default: 8px;
 
     --xy-handle-background-color-default: #ededed;
-    --xy-handle-border-color-default: #0039ad;
+    --xy-handle-border-color-default: rgba(0, 57, 173, 0.8);
 
     --xy-edge-label-color-default: #505050;
 }
@@ -145,6 +145,12 @@ which is not a descendant of any stage
 .react-flow__edge.selectable:hover .react-flow__edge-path,
 .react-flow__edge.selectable.selected .react-flow__edge-path {
     stroke: var(--xy-theme-edge-hover);
+}
+
+/* Edge Markers */
+.react-flow__arrowhead polyline {
+    fill: #0039ad !important;
+    stroke: #0039ad !important;
 }
 
 .react-flow__handle {
