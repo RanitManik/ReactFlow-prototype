@@ -22,12 +22,12 @@ import "@xyflow/react/dist/style.css";
 import { v4 as uuidv4 } from "uuid";
 
 import CustomEdge from "./_components/custom-edge";
-import { LabeledGroupNode } from "../components/labeled-group-node";
-import { CustomChildNode } from "../components/custom-child-node";
 import { toast, Toaster } from "sonner";
 import "./index.css";
 import { useDnD } from "./context/drag-and-drop";
 import { Sidebar } from "./_components/sidebar";
+import { LabeledGroupNode } from "../components/labeled-group-node";
+import { CustomChildNode } from "../components/custom-child-node";
 
 const nodeTypes = {
     LabeledGroupNode,
@@ -43,7 +43,23 @@ export default function Page() {
     const [nodes, setNodes] = useNodesState([]);
     const [edges, setEdges] = useEdgesState([]);
 
-    // drag and drop providers setup
+    // Persistent indices using useRef
+    const stageIndex = useRef(1);
+    const processIndex = useRef(1);
+
+    const getStageIndex = useCallback(() => {
+        const currentIndex = stageIndex.current;
+        stageIndex.current += 1;
+        return currentIndex;
+    }, []);
+
+    const getProcessIndex = useCallback(() => {
+        const currentIndex = processIndex.current;
+        processIndex.current += 1;
+        return currentIndex;
+    }, []);
+
+    // Drag-and-drop providers setup
     const { screenToFlowPosition } = useReactFlow();
     const [type] = useDnD();
 
@@ -59,8 +75,6 @@ export default function Page() {
         type: "CustomEdge",
         data: { label: "Dependent" },
     };
-
-    // const panOnDrag = [1, 2];
 
     const onConnect = useCallback(
         (params) => {
@@ -83,8 +97,6 @@ export default function Page() {
         (changes) => setEdges((eds) => applyEdgeChanges(changes, eds)),
         [setEdges],
     );
-
-    // drag and drop functions
 
     const onDragOver = useCallback((event) => {
         event.preventDefault();
@@ -109,8 +121,12 @@ export default function Page() {
                 id: uuidv4(),
                 type,
                 position,
-                data: { label: `${type} node` },
-                /*measured: { width: 160, height: 20 }, // Default size for new node*/
+                data: {
+                    label:
+                        type === "LabeledGroupNode"
+                            ? `Stage ${getStageIndex()}`
+                            : `Process ${getProcessIndex()}`,
+                },
             };
 
             if (type === "LabeledGroupNode") {
@@ -189,34 +205,14 @@ export default function Page() {
             // Add the new node to the state
             setNodes((nds) => nds.concat(newNode));
         },
-        [screenToFlowPosition, type, nodes, setNodes],
-    );
-
-    const onNodesDelete = useCallback(
-        (deleted) => {
-            setEdges(
-                deleted.reduce((acc, node) => {
-                    const incomers = getIncomers(node, nodes, edges);
-                    const outgoers = getOutgoers(node, nodes, edges);
-                    const connectedEdges = getConnectedEdges([node], edges);
-
-                    const remainingEdges = acc.filter(
-                        (edge) => !connectedEdges.includes(edge),
-                    );
-
-                    const createdEdges = incomers.flatMap(({ id: source }) =>
-                        outgoers.map(({ id: target }) => ({
-                            id: `${source}->${target}`,
-                            source,
-                            target,
-                        })),
-                    );
-
-                    return [...remainingEdges, ...createdEdges];
-                }, edges),
-            );
-        },
-        [nodes, edges],
+        [
+            screenToFlowPosition,
+            type,
+            nodes,
+            setNodes,
+            getStageIndex,
+            getProcessIndex,
+        ],
     );
 
     return (
@@ -228,7 +224,6 @@ export default function Page() {
                     onNodesChange={onNodesChange}
                     onEdgesChange={onEdgesChange}
                     onConnect={onConnect}
-                    onNodesDelete={onNodesDelete}
                     defaultEdgeOptions={defaultEdgeOptions}
                     onDrop={onDrop}
                     onDragOver={onDragOver}
