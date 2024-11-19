@@ -5,6 +5,6 @@ export const BaseNode = React.forwardRef<
     HTMLDivElement,
     React.HTMLAttributes<HTMLDivElement> & { selected?: boolean }
 >(({ className, selected, ...props }, ref) => (
-    <div ref={ref} className={cn("p-5", className)} {...props} />
+    <div ref={ref} className={cn(className)} {...props} />
 ));
 BaseNode.displayName = "BaseNode";

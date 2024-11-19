@@ -4,32 +4,20 @@ import { BaseNode } from "@/components/base-node";
 export function LabeledGroupNode({ id, data, selected }: any) {
     const { label } = data;
 
-    const controlStyle = {
-        background: "transparent",
-        border: "none",
-    };
-
     return (
         <BaseNode
             selected={selected}
-            className="h-full overflow-hidden rounded-sm p-0"
             style={{
                 width: 600,
                 height: 300,
             }}
         >
-            <NodeResizeControl
-                style={controlStyle}
-                minWidth={400}
-                minHeight={250}
-            >
+            <NodeResizeControl minWidth={400} minHeight={250}>
                 <ResizeIcon />
             </NodeResizeControl>
             {label && (
                 <div className="absolute -top-7 flex w-full items-end justify-between">
-                    <span className="text-sm font-bold text-primary">
-                        {label}
-                    </span>
+                    <span className="text-sm font-bold">{label}</span>
                 </div>
             )}
             <Handle type="target" position={Position.Left} />

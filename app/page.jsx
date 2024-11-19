@@ -43,9 +43,6 @@ export default function Page() {
     const [nodes, setNodes] = useNodesState([]);
     const [edges, setEdges] = useEdgesState([]);
 
-    console.log(edges);
-    console.log(nodes);
-
     // drag and drop providers setup
     const { screenToFlowPosition } = useReactFlow();
     const [type] = useDnD();
@@ -185,6 +182,8 @@ export default function Page() {
                     newNode.position.x - bestParent.parentNode.position.x;
                 newNode.position.y =
                     newNode.position.y - bestParent.parentNode.position.y;
+            } else {
+                newNode.className = "independent-process-node";
             }
 
             // Add the new node to the state

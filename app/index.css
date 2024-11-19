@@ -44,7 +44,7 @@
 
 .dndflow .dndnode.process {
     background-color: white;
-    border-color: #ff0072;
+    border-color: #f57dbd;
 }
 
 .dndflow .reactflow-wrapper {
@@ -92,11 +92,21 @@
     border-radius: var(--xy-node-border-radius-default);
     background-color: var(--xy-node-background-color-default);
     text-align: center;
-    padding: 10px;
+    padding: 15px 20px;
     font-size: 12px;
     border: var(--xy-node-border-default);
     border-color: var(--xy-theme-selected);
-    color: var(--xy-node-color-default);
+    color: #cb458d;
+}
+
+/*
+this is styling for a
+process react-flow-node
+which is not a descendant of any stage
+*/
+
+.independent-process-node {
+    background-color: #fff0f5;
 }
 
 .react-flow__node.selectable:focus {
@@ -115,7 +125,9 @@
 }
 
 .react-flow__node-LabeledGroupNode {
-    background-color: rgba(207, 182, 255, 0.4) !important;
+    padding: 0;
+    background-color: rgba(207, 182, 255, 0.4);
+    color: #704af2;
 }
 
 .react-flow__node-LabeledGroupNode.selectable {
@@ -130,11 +142,6 @@
     border-color: black;
 }
 
-.react-flow__node-group {
-    background-color: rgba(207, 182, 255, 0.4);
-    border-color: #9e86ed;
-}
-
 .react-flow__edge.selectable:hover .react-flow__edge-path,
 .react-flow__edge.selectable.selected .react-flow__edge-path {
     stroke: var(--xy-theme-edge-hover);
@@ -142,6 +149,24 @@
 
 .react-flow__handle {
     background-color: var(--xy-handle-background-color-default);
+    width: 10px;
+    height: 10px;
+}
+
+.react-flow__node .react-flow__handle.connectionindicator,
+.react-flow__node .react-flow__handle {
+    background-color: #cb458d;
+    border-color: white;
+    width: 10px;
+    height: 10px;
+}
+
+.react-flow__node-LabeledGroupNode .react-flow__handle.connectionindicator,
+.react-flow__node-LabeledGroupNode .react-flow__handle {
+    background-color: #704af2;
+    border-color: white;
+    width: 14px;
+    height: 14px;
 }
 
 .react-flow__handle.connectionindicator:hover {
@@ -150,10 +175,21 @@
     background-color: white;
 }
 
+.react-flow__node .react-flow__handle.connectionindicator:hover {
+    background-color: white;
+    border-color: #cb458d;
+}
+
+.react-flow__node-LabeledGroupNode
+    .react-flow__handle.connectionindicator:hover {
+    background-color: white;
+    border-color: #704af2;
+}
+
 .react-flow__handle.connectionindicator:focus,
 .react-flow__handle.connectingfrom,
 .react-flow__handle.connectingto {
-    border-color: var(--xy-theme-edge-hover);
+    border-color: white;
 }
 
 .react-flow__node-resizer {

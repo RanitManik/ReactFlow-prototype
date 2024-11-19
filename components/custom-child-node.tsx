@@ -4,12 +4,9 @@ import { BaseNode } from "@/components/base-node";
 export function CustomChildNode({ data, selected }: any) {
     const { label } = data;
     return (
-        <BaseNode
-            selected={selected}
-            className="h-full overflow-hidden rounded-sm"
-        >
+        <BaseNode selected={selected}>
             {label && (
-                <div className="flex h-full w-full items-end justify-between">
+                <div>
                     <span className="text-xs font-medium">{label}</span>
                 </div>
             )}
