@@ -1,5 +1,5 @@
 import React from "react";
-import { useDnD } from "../context/drag-and-drop";
+import { useDnD } from "../app/context/drag-and-drop";
 
 export const Sidebar = () => {
     const [_, setType] = useDnD();

@@ -18,11 +18,11 @@ import {
 import "@xyflow/react/dist/style.css";
 import { v4 as uuidv4 } from "uuid";
 
-import CustomEdge from "./_components/custom-edge";
+import CustomEdge from "../components/custom-edge";
 import { toast, Toaster } from "sonner";
 import "./index.css";
 import { useDnD } from "./context/drag-and-drop";
-import { Sidebar } from "./_components/sidebar";
+import { Sidebar } from "../components/sidebar";
 import { LabeledGroupNode } from "../components/labeled-group-node";
 import { CustomChildNode } from "../components/custom-child-node";
 

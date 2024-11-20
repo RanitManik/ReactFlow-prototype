@@ -12,10 +12,10 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle,
-} from "../../components/ui/dialog";
-import { Label } from "../../components/ui/label";
-import { Input } from "../../components/ui/input";
-import { Button } from "../../components/ui/button";
+} from "/components/ui/dialog";
+import { Label } from "/components/ui/label";
+import { Input } from "/components/ui/input";
+import { Button } from "/components/ui/button";
 
 const CustomEdge = ({
     id,
@@ -97,7 +97,7 @@ const CustomEdge = ({
                 <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
                     <DialogContent className="sm:max-w-[425px]">
                         <DialogHeader>
-                            <DialogTitle>Enter Process Details</DialogTitle>
+                            <DialogTitle>Enter Edge Details</DialogTitle>
                         </DialogHeader>
                         <div className="space-y-4">
                             <div className="flex flex-col gap-1">
