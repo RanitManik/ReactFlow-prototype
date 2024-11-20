@@ -75,17 +75,34 @@ export default function Page() {
 
     const onConnect = useCallback(
         (params) => {
-            // Prevent self-connections
             if (params.source === params.target) {
                 toast.error("Self-connections are not allowed!");
                 return;
             }
 
-            // Add the edge if valid
-            setEdges((eds) => addEdge(params, eds));
+            const sourceNode = nodes.find((node) => node.id === params.source);
+            const targetNode = nodes.find((node) => node.id === params.target);
+
+            if (
+                sourceNode?.type === "LabeledGroupNode" &&
+                targetNode?.type === "LabeledGroupNode"
+            ) {
+                const newEdge = {
+                    ...params,
+                    type: "CustomEdge",
+                    data: {
+                        label: "Dependent",
+                        result: "",
+                    },
+                };
+                setEdges((eds) => addEdge(newEdge, eds));
+            } else {
+                setEdges((eds) => addEdge(params, eds));
+            }
         },
-        [setEdges],
+        [setEdges, nodes],
     );
+
     const onNodesChange = useCallback(
         (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
         [setNodes],
