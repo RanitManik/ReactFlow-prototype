@@ -18,6 +18,7 @@ export function LabeledGroupNode({ id, data, selected }: any) {
             // Add a small delay to ensure DOM readiness
             setTimeout(() => {
                 inputRef.current?.focus(); // Focus input when editing starts
+                inputRef.current?.select(); // select input when editing starts
             }, 0);
         }
     }, [isEditing]);
@@ -39,13 +40,13 @@ export function LabeledGroupNode({ id, data, selected }: any) {
                 <ResizeIcon />
             </NodeResizeControl>
             {label && (
-                <div className="absolute -top-8 flex w-full items-end justify-between">
+                <div className="absolute -top-7 flex w-full items-end justify-between">
                     {isEditing ? (
                         <input
                             ref={inputRef}
                             defaultValue={label}
                             placeholder="Enter Stage Name"
-                            className="w-full max-w-64 px-2 py-1 text-sm font-bold focus-visible:rounded-md focus-visible:outline-1 focus-visible:outline-primary/50"
+                            className="w-full p-0.5 text-sm font-semibold selection:bg-purple-200 focus-visible:outline-1 focus-visible:outline-primary"
                             onBlur={(evt) => {
                                 const updatedText =
                                     evt.target.value === ""
@@ -72,7 +73,8 @@ export function LabeledGroupNode({ id, data, selected }: any) {
                                     setIsEditing(true); // Enable editing on click
                                 }
                             }}
-                            className="max-w-60 cursor-pointer truncate px-2 py-1 text-sm font-bold transition hover:text-primary"
+                            title={label}
+                            className="max-w-60 cursor-auto truncate p-0.5 text-sm font-semibold transition hover:text-primary"
                         >
                             {label}
                         </span>

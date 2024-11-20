@@ -49,7 +49,12 @@ export function CustomChildNode({ id, data, selected }: any) {
                             paddingBlock: 15,
                         }}
                     >
-                        <span className="text-xs font-medium">{label}</span>
+                        <span
+                            title={label}
+                            className="block max-w-44 truncate text-xs font-medium"
+                        >
+                            {label}
+                        </span>
                     </div>
                 )}
                 <Handle type="target" position={Position.Left} />

@@ -39,12 +39,16 @@
 
 .dndflow .dndnode.stage {
     border-color: #704af2;
-    background-color: rgba(207, 182, 255, 0.4);
+    color: #704af2;
+    background-color: rgba(207, 182, 255, 0.3);
+    font-weight: 600;
 }
 
 .dndflow .dndnode.process {
-    background-color: white;
+    background-color: rgba(255, 240, 245, 0.8);
     border-color: #f57dbd;
+    color: #cb458d;
+    font-weight: 600;
 }
 
 .dndflow .reactflow-wrapper {
