@@ -34,16 +34,14 @@ const CustomEdge = ({
                     style={{
                         position: "absolute",
                         transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
-                        background: "#ffcc00",
-                        paddingInline: 8,
-                        paddingBlock: 4,
+                        paddingInline: 6,
+                        paddingBlock: 3,
                         borderRadius: 2,
-                        fontWeight: 700,
-                        fontSize: 10,
+                        fontSize: 9,
                     }}
-                    className="nodrag nopan flex items-center gap-1 border border-yellow-700 text-yellow-900"
+                    className="nodrag nopan flex items-center gap-1 border border-yellow-700 bg-[#ffcc00] font-semibold text-black"
                 >
-                    <SquarePlus size={10} />
+                    <SquarePlus size={9} />
                     {data.label}
                 </div>
             </EdgeLabelRenderer>
