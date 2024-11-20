@@ -60,15 +60,14 @@ const CustomEdge = ({
     };
 
     return (
-        <>
+        <g onDoubleClick={openModal}>
             <BaseEdge
                 id={id}
                 path={edgePath}
                 {...props}
                 interactionWidth={20}
-                onDoubleClick={openModal}
             />
-            <EdgeLabelRenderer>
+            <EdgeLabelRenderer onDoubleClick={openModal}>
                 <div
                     style={{
                         position: "absolute",
@@ -77,8 +76,9 @@ const CustomEdge = ({
                         paddingBlock: 4,
                         borderRadius: 2,
                         fontSize: 10,
+                        pointerEvents: "all",
                     }}
-                    className="nodrag nopan items-left flex flex-col gap-1 border border-yellow-700 bg-[#ffcc00] font-semibold text-black"
+                    className="nodrag nopan items-left flex cursor-pointer flex-col gap-1 border border-yellow-700 bg-[#ffcc00] font-semibold text-black"
                 >
                     <div className="flex items-center gap-1">
                         <SquarePlus size={10} />
@@ -87,7 +87,10 @@ const CustomEdge = ({
                     {data.result && ( // Only show result if it's not empty
                         <div className="flex items-center gap-1">
                             <Flag size={10} />
-                            Result: {data.result}
+                            Result:{" "}
+                            <span className="max-w-44 truncate text-yellow-900">
+                                {data.result}
+                            </span>
                         </div>
                     )}
                 </div>
@@ -127,7 +130,7 @@ const CustomEdge = ({
                     </DialogContent>
                 </Dialog>
             )}
-        </>
+        </g>
     );
 };
 

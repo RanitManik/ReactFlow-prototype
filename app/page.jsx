@@ -84,9 +84,15 @@ export default function Page() {
             const targetNode = nodes.find((node) => node.id === params.target);
 
             if (
-                sourceNode?.type === "LabeledGroupNode" &&
-                targetNode?.type === "LabeledGroupNode"
+                sourceNode?.type === "CustomChildNode" &&
+                (targetNode?.type === "LabeledGroupNode" ||
+                    targetNode.extent !== "parent")
             ) {
+                toast.error("Invalid Connection");
+                return;
+            }
+
+            if (sourceNode?.type === "LabeledGroupNode") {
                 const newEdge = {
                     ...params,
                     type: "CustomEdge",
