@@ -92,7 +92,7 @@
     border-radius: var(--xy-node-border-radius-default);
     background-color: var(--xy-node-background-color-default);
     text-align: center;
-    padding: 15px 20px;
+    /*padding: 15px 20px;*/
     font-size: 12px;
     border: var(--xy-node-border-default);
     border-color: var(--xy-theme-selected);

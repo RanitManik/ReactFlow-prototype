@@ -72,7 +72,7 @@ export function LabeledGroupNode({ id, data, selected }: any) {
                                     setIsEditing(true); // Enable editing on click
                                 }
                             }}
-                            className="max-w-60 cursor-pointer truncate px-2 py-1 text-sm font-bold"
+                            className="max-w-60 cursor-pointer truncate px-2 py-1 text-sm font-bold transition hover:text-primary"
                         >
                             {label}
                         </span>

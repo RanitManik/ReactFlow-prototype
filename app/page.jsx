@@ -216,6 +216,8 @@ export default function Page() {
         <div className="dndflow">
             <main className="reactflow-wrapper" ref={reactFlowWrapper}>
                 <ReactFlow
+                    elevateEdgesOnSelect={true}
+                    elevateNodesOnSelect={false}
                     nodes={nodes}
                     edges={edges}
                     onNodesChange={onNodesChange}
