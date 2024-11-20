@@ -84,9 +84,11 @@ export default function Page() {
             const targetNode = nodes.find((node) => node.id === params.target);
 
             if (
-                sourceNode?.type === "CustomChildNode" &&
-                (targetNode?.type === "LabeledGroupNode" ||
-                    targetNode.extent !== "parent")
+                (sourceNode?.type === "CustomChildNode" ||
+                    targetNode?.type === "CustomChildNode") &&
+                sourceNode?.parentId !== targetNode?.parentId &&
+                (sourceNode?.extent === "parent" ||
+                    targetNode?.extent === "parent")
             ) {
                 toast.error("Invalid Connection");
                 return;
