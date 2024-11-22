@@ -5,7 +5,7 @@
 ![GitHub Discussions](https://img.shields.io/github/discussions/RanitManik/ReactFlow-prototype)
 ![GitHub License](https://img.shields.io/github/license/RanitManik/ReactFlow-prototype)
 ![wakatime](https://wakatime.com/badge/github/RanitManik/ReactFlow-prototype.svg)
-[![Deploy Status](https://api.netlify.com/api/v1/badges/f5d91c72-5486-47f6-91d2-ad31c57e04e4/deploy-status)](https://react-flow-prototype.netlify.app/)
+![Deploy Status](https://api.netlify.com/api/v1/badges/f5d91c72-5486-47f6-91d2-ad31c57e04e4/deploy-status)
 
 This repository contains a complex implementation of ReactFlow using the free version of `@xyflow/react`, showcasing advanced features such as custom nodes, custom edges, and complex grouping of elements.
 
@@ -20,7 +20,7 @@ This repository contains a complex implementation of ReactFlow using the free ve
 ## Demo
 
 Check out the live demo here:  
-[Live Demo](https://react-flow-prototype.netlify.app/)
+[Live Demo](https://react-flow-pro.netlify.app/)
 
 
 ## Installation
