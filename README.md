@@ -20,7 +20,7 @@ This repository contains a complex implementation of ReactFlow using the free ve
 ## Demo
 
 Check out the live demo here:  
-[Live Demo](https://react-flow-pro.netlify.app/)
+[Live Demo](https://reactflow-pro.netlify.app/)
 
 
 ## Installation
