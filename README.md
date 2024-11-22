@@ -7,7 +7,7 @@
 ![wakatime](https://wakatime.com/badge/github/RanitManik/ReactFlow-prototype.svg)
 ![Deploy Status](https://api.netlify.com/api/v1/badges/f5d91c72-5486-47f6-91d2-ad31c57e04e4/deploy-status)
 
-This repository contains a complex implementation of ReactFlow using the free version of `@xyflow/react`, showcasing advanced features such as custom nodes, custom edges, and complex grouping of elements.
+This repository contains a complex implementation of ReactFlow using the free version of `@xyflow/react`, showcasing advanced features such as **custom nodes**, **custom edges**, **connection validation** and **complex grouping** of elements.
 
 
 ## Features
@@ -15,6 +15,7 @@ This repository contains a complex implementation of ReactFlow using the free ve
 - **Custom Nodes**: This project demonstrates how to create custom nodes with advanced styles and logic.
 - **Custom Edges**: The custom edges provide dynamic behavior with interactive and visually appealing connections.
 - **Complex Grouping**: Nodes and edges are grouped into logical units, making it easy to manage large flows.
+- **Connection Validation**: When two nodes are connected by edges, validation is required. For example, self-connections are not allowed for nodes, etc.
 - **Interactive Design**: Users can interact with the flow by dragging nodes, creating connections, and manipulating groups of nodes and edges.
 
 ## Demo
